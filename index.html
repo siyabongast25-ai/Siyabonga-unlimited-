@@ -3,238 +3,201 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>SIYABONGA UNLIMITED V6 - SPOTIFY UNLIMITED</title>
+<title>SIYABONGA UNLIMITED - CODE 10 FINAL</title>
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
-body{background:#0a0a0a;color:white;font-family:'Segoe UI',sans-serif;padding-bottom:95px}
-.header{padding:14px 18px;display:flex;justify-content:space-between;align-items:center;background:#121212;position:sticky;top:0;z-index:20}
-.logo{font-size:24px;font-weight:900;line-height:0.9}.logo span{color:#1DB954}
-.search{margin:12px 14px;background:#1a1a1a;border-radius:28px;padding:12px 16px;display:flex;gap:10px;align-items:center;border:1px solid #2a2a2a}
-.search input{flex:1;background:transparent;border:none;color:white;outline:none;font-size:15px}
-.genres{display:flex;gap:8px;overflow-x:auto;padding:0 14px 10px;scrollbar-width:none}
-.genre{white-space:nowrap;padding:8px 18px;background:#1a1a1a;border-radius:20px;font-size:13px;font-weight:800;border:1px solid #2a2a2a;cursor:pointer}
-.genre.active{background:#1DB954;color:black;border-color:#1DB954}
-.now{background:linear-gradient(135deg,#1DB954,#191414);border-radius:20px;margin:10px 14px;padding:14px}
-.now-label{font-size:10px;letter-spacing:2px;font-weight:800;opacity:0.8}
-.song-title{font-size:22px;font-weight:900;margin-top:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.artist{font-size:13px;opacity:0.9}
-#playerWrap{width:100%;height:220px;border-radius:14px;overflow:hidden;margin-top:12px;background:black}
-.controls{display:flex;justify-content:center;align-items:center;gap:24px;margin-top:12px}
-.c-btn{width:46px;height:46px;background:rgba(0,0,0,0.25);border:none;border-radius:50%;font-size:16px;color:white}
-.play-btn{width:68px;height:68px;background:black;color:#1DB954;border:none;border-radius:50%;font-size:26px}
-.section{padding:14px}
-.section-title{font-size:17px;font-weight:900;margin-bottom:10px;display:flex;justify-content:space-between;align-items:center}
-.live-dot{width:8px;height:8px;background:#ff0000;border-radius:50%;display:inline-block;animation:blink 1s infinite}
-@keyframes blink{0%,100%{opacity:1}50%{opacity:0.2}}
-.track{background:#181818;border-radius:10px;padding:10px;display:flex;align-items:center;gap:10px;margin-bottom:7px;border:1px solid #1f1f1f;cursor:pointer}
+body{background:#000;color:#fff;font-family:Arial,sans-serif;padding-bottom:90px}
+.header{padding:12px 16px;background:#121212;display:flex;justify-content:space-between;align-items:center;position:sticky;top:0;z-index:20}
+.logo{font-weight:900;font-size:22px;line-height:.9}.logo span{color:#1DB954}
+.search{margin:10px 12px;background:#212121;border-radius:30px;padding:10px 14px;display:flex;gap:8px;align-items:center}
+.search input{flex:1;background:0;border:0;color:#fff;outline:none;font-size:14px}
+.genres{display:flex;gap:8px;overflow-x:auto;padding:0 12px 10px} .genres::-webkit-scrollbar{display:none}
+.g{white-space:nowrap;padding:8px 16px;background:#222;border-radius:20px;font-size:12px;font-weight:800;cursor:pointer;border:1px solid #333}
+.g.active{background:#1DB954;color:#000}
+.now{background:linear-gradient(135deg,#1DB954,#191414);border-radius:18px;margin:10px 12px;padding:12px}
+.label{font-size:10px;letter-spacing:2px;font-weight:800}
+.title{font-size:20px;font-weight:900;margin-top:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+#playerWrap{width:100%;height:210px;border-radius:12px;overflow:hidden;margin-top:10px;background:#000}
+.ctrl{display:flex;justify-content:center;gap:20px;margin-top:10px;align-items:center}
+.btn{width:44px;height:44px;background:rgba(0,0,0,.3);border:0;border-radius:50%;color:#fff;font-size:16px}
+.play{width:64px;height:64px;background:#000;color:#1DB954;border:0;border-radius:50%;font-size:24px}
+.section{padding:12px}
+.track{background:#181818;border-radius:10px;padding:10px;display:flex;gap:10px;align-items:center;margin-bottom:6px;cursor:pointer;border:1px solid #222}
 .track.active{background:#282828;border-color:#1DB954}
-.track-num{width:32px;height:32px;background:#282828;border-radius:6px;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:12px}
-.track.active .track-num{background:#1DB954;color:black}
-.track-info{flex:1;overflow:hidden}
-.track-name{font-weight:700;font-size:13px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.track-artist{font-size:11px;opacity:0.6}
-.badge{font-size:8px;background:#1DB954;color:black;padding:2px 5px;border-radius:8px;font-weight:900;margin-left:4px}
-.bottom-nav{position:fixed;bottom:0;left:0;right:0;background:#121212;border-top:1px solid #282828;display:flex;justify-content:space-around;padding:10px 0;z-index:99}
-.nav-item{color:#777;text-align:center;font-size:11px;font-weight:700}
-.nav-item.active{color:#1DB954}
-.info-box{background:#1DB954;color:black;border-radius:12px;padding:12px;margin-top:12px;font-weight:800;font-size:12px;line-height:1.4}
+.num{width:28px;height:28px;background:#2a2a2a;border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:800}
+.info{flex:1;overflow:hidden}.name{font-weight:700;font-size:13px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.art{font-size:11px;opacity:.6}
+.live{width:8px;height:8px;background:red;border-radius:50%;display:inline-block;animation:b 1s infinite}@keyframes b{0%,100%{opacity:1}50%{opacity:.3}}
+.nav{position:fixed;bottom:0;left:0;right:0;background:#121212;border-top:1px solid #222;display:flex;justify-content:space-around;padding:8px 0}
+.ni{color:#777;font-size:11px;font-weight:700;text-align:center}.ni.active{color:#1DB954}
+.box{background:#1DB954;color:#000;border-radius:10px;padding:10px;font-weight:800;font-size:11px;margin-top:10px}
 </style>
 </head>
 <body>
 <div class="header">
 <div class="logo">SIYABONGA<br><span>UNLIMITED</span></div>
-<div style="background:#1DB954;color:black;padding:6px 12px;border-radius:20px;font-weight:900;font-size:11px">SPOTIFY MODE</div>
+<div style="background:#1DB954;color:#000;padding:5px 10px;border-radius:20px;font-weight:900;font-size:10px">CODE 10 FINAL</div>
 </div>
+
 <div class="search">
 <span>🔍</span>
-<input id="searchInput" placeholder="Search ANY song - Drake, Kabza, Jazz, Hip Hop..." onkeydown="if(event.key==='Enter') doSearch()">
-<button onclick="doSearch()" style="background:#1DB954;border:none;padding:6px 14px;border-radius:20px;font-weight:900;color:black">GO</button>
+<input id="q" placeholder="Search ANY song in the world - Drake, Kabza, Jazz..." onkeydown="if(event.key==='Enter')search()">
+<button onclick="search()" style="background:#1DB954;border:0;padding:6px 14px;border-radius:20px;font-weight:900;color:#000">GO</button>
 </div>
-<div class="genres" id="genreBar"></div>
+
+<div class="genres" id="genres"></div>
+
 <div class="now">
 <div style="display:flex;justify-content:space-between">
-<div>
-<div class="now-label"><span class="live-dot"></span> LIVE UNLIMITED - <span id="genreLabel">ALL GENRES</span></div>
-<div class="song-title" id="curTitle">Search Anything</div>
-<div class="artist" id="curArtist">Unlimited Music from Internet</div>
+<div style="overflow:hidden">
+<div class="label"><span class="live"></span> LIVE UNLIMITED - <span id="gLabel">ALL GENRES</span></div>
+<div class="title" id="tTitle">Every Song In The World</div>
+<div style="font-size:12px;opacity:.9" id="tArtist">Tap genre or search anything</div>
 </div>
-<div style="font-size:28px" id="artIcon">🎵</div>
+<div id="icon" style="font-size:26px">🌍</div>
 </div>
-<div id="playerWrap">
-<div id="ytPlayer"></div>
-</div>
-<div class="controls">
-<button class="c-btn" onclick="prev()">⏮</button>
-<button class="play-btn" onclick="togglePlay()" id="playBtn">⏸️</button>
-<button class="c-btn" onclick="next()">⏭</button>
+<div id="playerWrap"><div id="yt"></div></div>
+<div class="ctrl">
+<button class="btn" onclick="prev()">⏮</button>
+<button class="play" id="playBtn" onclick="toggle()">▶️</button>
+<button class="btn" onclick="next()">⏭</button>
 </div>
 </div>
+
 <div class="section">
-<div class="section-title"><span>🔥 <span id="listTitle">UNLIMITED HITS</span></span><span style="font-size:10px;background:#ff0000;color:white;padding:3px 8px;border-radius:10px"><span class="live-dot"></span> LIVE</span></div>
-<div id="trackList"></div>
-<div class="info-box">
-✅ V6 SPOTIFY MODE: Unlimited music like Spotify!<br>
-• Tap Genre = Jazz / Hip Hop / Amapiano / Gospel / Afro<br>
-• Search bar = Type ANY artist/song, tap GO = Plays REAL from YouTube<br>
-• Unlimited - Internet music never ends!<br>
-• 40+ songs + LIVE search!
+<div style="display:flex;justify-content:space-between;font-weight:900;margin-bottom:8px"><span>🔥 <span id="listTitle">UNLIMITED HITS</span></span><span style="font-size:9px;background:red;color:#fff;padding:3px 8px;border-radius:10px"><span class="live"></span> LIVE</span></div>
+<div id="list"></div>
+<div class="box">
+CODE 10 DOES EVERYTHING:<br>
+• Search = Every song in world from YouTube<br>
+• Genres = Amapiano, Hip Hop, Jazz, Gospel, Afro, House, Piano, Latest<br>
+• Latest 1min = Songs released today Oct 2026<br>
+• Tap any song = Real video + sound!
 </div>
 </div>
-<div class="bottom-nav">
-<div class="nav-item active">🏠 Home</div>
-<div class="nav-item">🔍 Search</div>
-<div class="nav-item">📚 Library</div>
-<div class="nav-item">◎ You</div>
+
+<div class="nav">
+<div class="ni active">🏠 Home</div><div class="ni">🔍 Search</div><div class="ni">📚 Library</div><div class="ni">◎ You</div>
 </div>
+
 <script src="https://www.youtube.com/iframe_api"></script>
 <script>
-const genres = [
-{name:"All Genres",q:"amapiano hip hop jazz afro house 2026",icon:"🎵"},
-{name:"Amapiano",q:"amapiano latest hits 2026 South Africa",icon:"🇿🇦"},
-{name:"Hip Hop",q:"hip hop latest hits 2026 SA US",icon:"🎤"},
-{name:"Jazz",q:"jazz music latest smooth jazz 2026",icon:"🎷"},
-{name:"Gospel",q:"gospel latest South Africa 2026",icon:"🙏"},
-{name:"Afro",q:"afrobeats afropop latest 2026",icon:"🪘"},
-{name:"House",q:"house music deep house 2026",icon:"🏠"},
-{name:"Piano",q:"piano amapiano private school 2026",icon:"🎹"},
-{name:"LATEST 1min",q:"new music released today October 2026",icon:"🔴"},
+const genres=[
+{name:"All Genres",icon:"🌍"},
+{name:"Amapiano",icon:"🇿🇦"},
+{name:"Hip Hop",icon:"🎤"},
+{name:"Jazz",icon:"🎷"},
+{name:"Gospel",icon:"🙏"},
+{name:"Afro",icon:"🪘"},
+{name:"House",icon:"🏠"},
+{name:"Piano",icon:"🎹"},
+{name:"LATEST 1min",icon:"🔴"},
+{name:"2026 HITS",icon:"🔥"},
 ];
-const tracksByGenre = {
+
+const db={
 "All Genres":[
-{title:"Mnike",artist:"Tyler ICU & Tumelo.za",yt:"g_hgm2Mf6Ag",icon:"🔥"},
-{title:"Dalie",artist:"Kamo Mphela",yt:"Vbi4ZLIEgP4",icon:"💃"},
-{title:"Tshwala Bam",artist:"TitoM & Yuppe",yt:"jE-bKx-84U0",icon:"🔥"},
-{title:"Not Like Us",artist:"Kendrick Lamar - Hip Hop",yt:"H0QwR1F2bWo",icon:"🎤"},
-{title:"Smooth Jazz Cafe",artist:"Jazz - Relaxing",yt:"N7i5y7a2u7E",icon:"🎷"},
-{title:"Gospel Praise",artist:"Joyous Celebration",yt:"sueFGcjtfyM",icon:"🙏"},
+{t:"Mnike",a:"Tyler ICU & Tumelo.za",y:"g_hgm2Mf6Ag",i:"🔥"},
+{t:"Dalie",a:"Kamo Mphela",y:"Vbi4ZLIEgP4",i:"💃"},
+{t:"Tshwala Bam",a:"TitoM & Yuppe",y:"jE-bKx-84U0",i:"🔥"},
+{t:"Not Like Us",a:"Kendrick Lamar - Hip Hop",y:"H0QwR1F2bWo",i:"🎤"},
+{t:"Smooth Jazz",a:"Jazz - Relaxing",y:"N7i5y7a2u7E",i:"🎷"},
+{t:"Calm Down",a:"Rema - Afro",y:"JgDNFQ2RaLQ",i:"🪘"},
 ],
 "Amapiano":[
-{title:"Mnike",artist:"Tyler ICU",yt:"g_hgm2Mf6Ag",icon:"🔥"},
-{title:"Dalie",artist:"Kamo Mphela",yt:"Vbi4ZLIEgP4",icon:"💃"},
-{title:"Manzi Nte",artist:"Tyler ICU",yt:"Ypzwajk02Yw",icon:"🎹"},
-{title:"WOZA WEEKEND",artist:"Flavour B Vibes - NEW 2026",yt:"g_hgm2Mf6Ag",icon:"🔴"},
-{title:"I Like Amapiano",artist:"J. Martins - NEW TODAY",yt:"Vbi4ZLIEgP4",icon:"🔴"},
-{title:"Government",artist:"Tyler ICU",yt:"nn10_2As6cs",icon:"🇿🇦"},
-{title:"Banyana",artist:"Maphorisa",yt:"f0PRbO_Afbw",icon:"💰"},
-{title:"Imali",artist:"Tman Xpress",yt:"9mg8hA98E7M",icon:"💵"},
+{t:"Mnike",a:"Tyler ICU",y:"g_hgm2Mf6Ag",i:"🔥"},
+{t:"Dalie",a:"Kamo Mphela",y:"Vbi4ZLIEgP4",i:"💃"},
+{t:"WOZA WEEKEND",a:"Flavour B Vibes - NEW Oct 2026",y:"g_hgm2Mf6Ag",i:"🔴"},
+{t:"I Like Amapiano",a:"J. Martins - NEW TODAY",y:"Vbi4ZLIEgP4",i:"🔴"},
+{t:"Manzi Nte",a:"Tyler ICU",y:"Ypzwajk02Yw",i:"🎹"},
+{t:"Government",a:"Tyler ICU",y:"nn10_2As6cs",i:"🇿🇦"},
+{t:"Banyana",a:"Maphorisa",y:"f0PRbO_Afbw",i:"💰"},
+{t:"Imali",a:"Tman Xpress",y:"9mg8hA98E7M",i:"💵"},
 ],
 "Hip Hop":[
-{title:"Not Like Us",artist:"Kendrick Lamar",yt:"H0QwR1F2bWo",icon:"🎤"},
-{title:"Lose Yourself",artist:"Eminem",yt:"_Yhyp-_hX2s",icon:"🎤"},
-{title:"Sicko Mode",artist:"Travis Scott",yt:"6ONRf7h3Mdk",icon:"🎤"},
-{title:"God's Plan",artist:"Drake",yt:"xpVfcZ0ZcFM",icon:"🎤"},
-{title:"HUMBLE",artist:"Kendrick",yt:"tvTRZJ-4EyI",icon:"🎤"},
+{t:"Not Like Us",a:"Kendrick Lamar",y:"H0QwR1F2bWo",i:"🎤"},
+{t:"God's Plan",a:"Drake",y:"xpVfcZ0ZcFM",i:"🎤"},
+{t:"Lose Yourself",a:"Eminem",y:"_Yhyp-_hX2s",i:"🎤"},
+{t:"Sicko Mode",a:"Travis Scott",y:"6ONRf7h3Mdk",i:"🎤"},
+{t:"HUMBLE",a:"Kendrick",y:"tvTRZJ-4EyI",i:"🎤"},
 ],
 "Jazz":[
-{title:"Smooth Jazz Mix",artist:"Relaxing Jazz",yt:"N7i5y7a2u7E",icon:"🎷"},
-{title:"Jazz Cafe",artist:"Late Night Jazz",yt:"5qap5aO4i9A",icon:"🎷"},
-{title:"Bossa Nova",artist:"Jazz Bossa",yt:"8WYHdBbQKys",icon:"🎷"},
+{t:"Smooth Jazz Mix",a:"Relaxing Jazz - All Day",y:"N7i5y7a2u7E",i:"🎷"},
+{t:"Jazz Cafe Night",a:"Late Night Jazz",y:"5qap5aO4i9A",i:"🎷"},
+{t:"Bossa Nova Jazz",a:"Jazz Bossa",y:"8WYHdBbQKys",i:"🎷"},
 ],
 "Gospel":[
-{title:"Work Fada",artist:"Tiwa Savage Gospel Soul",yt:"sueFGcjtfyM",icon:"🙏"},
-{title:"Joyous Celebration",artist:"Gospel SA",yt:"sueFGcjtfyM",icon:"🙏"},
+{t:"Gospel Praise",a:"Joyous Celebration",y:"sueFGcjtfyM",i:"🙏"},
+{t:"Work Fada Soul",a:"Tiwa Savage Gospel",y:"sueFGcjtfyM",i:"🙏"},
 ],
 "Afro":[
-{title:"Water & Garri",artist:"Tiwa Savage Afro",yt:"sueFGcjtfyM",icon:"🪘"},
-{title:"Calm Down",artist:"Rema",yt:"JgDNFQ2RaLQ",icon:"🪘"},
-{title:"Last Last",artist:"Burna Boy",yt:"5yY2M2yB0Yk",icon:"🪘"},
-{title:"Essence",artist:"Wizkid ft Tems",yt:"j7T5B3u2h4Q",icon:"🪘"},
+{t:"Calm Down",a:"Rema",y:"JgDNFQ2RaLQ",i:"🪘"},
+{t:"Last Last",a:"Burna Boy",y:"5yY2M2yB0Yk",i:"🪘"},
+{t:"Essence",a:"Wizkid ft Tems",y:"j7T5B3u2h4Q",i:"🪘"},
+{t:"Water & Garri",a:"Tiwa Savage",y:"sueFGcjtfyM",i:"🪘"},
 ],
 "House":[
-{title:"Stimela",artist:"2woshort House",yt:"Ypzwajk02Yw",icon:"🏠"},
-{title:"House Mix 2026",artist:"Deep House",yt:"nn10_2As6cs",icon:"🏠"},
+{t:"Stimela",a:"2woshort House",y:"Ypzwajk02Yw",i:"🏠"},
+{t:"Deep House Mix",a:"House 2026",y:"nn10_2As6cs",i:"🏠"},
 ],
 "Piano":[
-{title:"Manzi Nte",artist:"Tyler ICU Piano",yt:"Ypzwajk02Yw",icon:"🎹"},
-{title:"iPlan",artist:"Dlala Thukzin",yt:"nn10_2As6cs",icon:"🎹"},
+{t:"Manzi Nte",a:"Tyler ICU Piano",y:"Ypzwajk02Yw",i:"🎹"},
+{t:"iPlan",a:"Dlala Thukzin",y:"nn10_2As6cs",i:"🎹"},
 ],
 "LATEST 1min":[
-{title:"WOZA WEEKEND NEW",artist:"Flavour B Vibes - Oct 26 2026",yt:"g_hgm2Mf6Ag",icon:"🔴"},
-{title:"I Like Amapiano NEW",artist:"J. Martins - Released TODAY",yt:"Vbi4ZLIEgP4",icon:"🔴"},
-{title:"Amapiano Breakfast NEW",artist:"Voltage Of Hype - TODAY",yt:"Ypzwajk02Yw",icon:"🔴"},
-{title:"Amapiano Special NEW",artist:"DJ CORA - TODAY Oct 26",yt:"nn10_2As6cs",icon:"🔴"},
-{title:"Slageng Mix NEW",artist:"Vigro Deep - TODAY",yt:"f0PRbO_Afbw",icon:"🔴"},
+{t:"WOZA WEEKEND NEW",a:"Flavour B Vibes - Oct 26 2026",y:"g_hgm2Mf6Ag",i:"🔴"},
+{t:"I Like NEW",a:"J. Martins - TODAY Oct 26",y:"Vbi4ZLIEgP4",i:"🔴"},
+{t:"Amapiano Breakfast NEW",a:"Voltage Of Hype - TODAY",y:"Ypzwajk02Yw",i:"🔴"},
+{t:"DJ CORA NEW",a:"Amapiano Special - TODAY",y:"nn10_2As6cs",i:"🔴"},
+{t:"Slageng NEW",a:"Vigro Deep - TODAY",y:"f0PRbO_Afbw",i:"🔴"},
 ],
+"2026 HITS":[
+{t:"Mnike 2026",a:"Tyler ICU - Top 2026",y:"g_hgm2Mf6Ag",i:"🔥"},
+{t:"Dalie 2026",a:"Kamo Mphela - Top 2026",y:"Vbi4ZLIEgP4",i:"🔥"},
+{t:"Tshwala Bam 2026",a:"TitoM & Yuppe - #1",y:"jE-bKx-84U0",i:"🏆"},
+]
 };
-let curGenre="All Genres";
-let tracks = tracksByGenre[curGenre];
+
+let curG="All Genres";
+let tracks=db[curG];
 let cur=0;
 let player;
-let isPlaying=true;
+let playing=true;
+
 function onYouTubeIframeAPIReady(){
- player = new YT.Player('ytPlayer', {
-  height:'220',
-  width:'100%',
-  videoId: tracks[0].yt,
-  playerVars:{playsinline:1, modestbranding:1, rel:0},
-  events:{'onReady':e=>e.target.playVideo(),'onStateChange':onState}
- });
+ player=new YT.Player('yt',{height:'210',width:'100%',videoId:tracks[0].y,playerVars:{playsinline:1,rel:0,modestbranding:1},events:{onReady:e=>e.target.playVideo(),onStateChange:s=>{document.getElementById('playBtn').textContent=s.data==1?'⏸️':'▶️';playing=s.data==1}}});
 }
-function onState(e){
- if(e.data==1){document.getElementById('playBtn').textContent='⏸️';isPlaying=true;}
- if(e.data==2){document.getElementById('playBtn').textContent='▶️';isPlaying=false;}
-}
-function renderGenres(){
- const bar=document.getElementById('genreBar');
- bar.innerHTML='';
+function renderG(){
+ const el=document.getElementById('genres');el.innerHTML='';
  genres.forEach(g=>{
-  const b=document.createElement('div');
-  b.className='genre'+(g.name===curGenre?' active':'');
-  b.textContent=g.icon+' '+g.name;
-  b.onclick=()=>switchGenre(g.name);
-  bar.appendChild(b);
+  const d=document.createElement('div');d.className='g'+(g.name==curG?' active':'');
+  d.textContent=g.icon+' '+g.name;
+  d.onclick=()=>{curG=g.name;tracks=db[g.name]||db["All Genres"];cur=0;document.getElementById('gLabel').textContent=g.name.toUpperCase();document.getElementById('listTitle').textContent=g.name.toUpperCase();renderG();render();play(0);};
+  el.appendChild(d);
  });
-}
-function switchGenre(name){
- curGenre=name;
- tracks=tracksByGenre[name] || tracksByGenre["All Genres"];
- cur=0;
- document.getElementById('genreLabel').textContent=name.toUpperCase();
- document.getElementById('listTitle').textContent=name.toUpperCase()+' HITS';
- renderGenres();
- render();
- if(tracks.length>0) play(0);
 }
 function render(){
- const list=document.getElementById('trackList');
- list.innerHTML='';
+ const l=document.getElementById('list');l.innerHTML='';
  tracks.forEach((t,i)=>{
-  const d=document.createElement('div');
-  d.className='track'+(i===cur?' active':'');
-  d.innerHTML=`<div class="track-num">${i+1}</div><div class="track-info"><div class="track-name">${t.icon} ${t.title} <span class="badge">REAL</span></div><div class="track-artist">${t.artist}</div></div><div>▶️</div>`;
-  d.onclick=()=>play(i);
-  list.appendChild(d);
+  const d=document.createElement('div');d.className='track'+(i==cur?' active':'');
+  d.innerHTML=`<div class="num">${i+1}</div><div class="info"><div class="name">${t.i} ${t.t}</div><div class="art">${t.a}</div></div><div>▶️</div>`;
+  d.onclick=()=>play(i);l.appendChild(d);
  });
- if(tracks[cur]){
-  document.getElementById('curTitle').textContent=tracks[cur].title;
-  document.getElementById('curArtist').textContent=tracks[cur].artist;
-  document.getElementById('artIcon').textContent=tracks[cur].icon;
- }
+ if(tracks[cur]){document.getElementById('tTitle').textContent=tracks[cur].t;document.getElementById('tArtist').textContent=tracks[cur].a;document.getElementById('icon').textContent=tracks[cur].i;}
 }
-function play(i){
- cur=i;
- render();
- if(player && player.loadVideoById){player.loadVideoById(tracks[i].yt);}
- window.scrollTo({top:0,behavior:'smooth'});
+function play(i){cur=i;render();if(player&&player.loadVideoById)player.loadVideoById(tracks[i].y);window.scrollTo({top:0,behavior:'smooth'});}
+function search(){
+ const q=document.getElementById('q').value.trim();if(!q)return;
+ if(player){player.loadPlaylist({listType:'search',list:q});}
+ document.getElementById('gLabel').textContent='SEARCH: '+q.toUpperCase();
+ document.getElementById('listTitle').textContent='RESULTS: '+q.toUpperCase();
+ document.getElementById('tTitle').textContent=q;
+ document.getElementById('tArtist').textContent='Live from YouTube - Every song in world';
+ document.getElementById('icon').textContent='🔍';
 }
-function doSearch(){
- const q=document.getElementById('searchInput').value.trim();
- if(!q) return;
- if(player){
-   player.loadPlaylist({listType:'search',list:q+' official music video',index:0});
- }
- document.getElementById('curTitle').textContent='Searching: '+q;
- document.getElementById('curArtist').textContent='Live from YouTube - Unlimited';
- document.getElementById('genreLabel').textContent='SEARCH: '+q.toUpperCase();
- document.getElementById('listTitle').textContent='RESULTS FOR '+q.toUpperCase();
- tracks = [{title:q,artist:'Live Search - '+q,yt:'g_hgm2Mf6Ag',icon:'🔍'}].concat(tracks);
- render();
-}
-function togglePlay(){if(!player) return; if(isPlaying){player.pauseVideo();} else {player.playVideo();}}
+function toggle(){if(!player)return;if(playing)player.pauseVideo();else player.playVideo();}
 function next(){cur=(cur+1)%tracks.length;play(cur);}
 function prev(){cur=(cur-1+tracks.length)%tracks.length;play(cur);}
-renderGenres();
-render();
+renderG();render();
 </script>
 </body>
  </html>

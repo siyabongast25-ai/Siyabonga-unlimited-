@@ -3,51 +3,37 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>SIYABONGA UNLIMITED - V2</title>
+<title>SIYABONGA UNLIMITED V3 - REAL HITS</title>
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
-body{background:#0a0a0a;color:white;font-family:'Segoe UI',sans-serif;padding-bottom:90px}
-.header{padding:20px;display:flex;justify-content:space-between;align-items:center}
-.logo{font-size:28px;font-weight:900;line-height:0.9}
-.logo span{color:#FFD700}
-.profile{width:45px;height:45px;background:#FFD700;border-radius:50%;display:flex;align-items:center;justify-content:center;color:black;font-weight:900;font-size:20px}
-.now-playing{background:linear-gradient(135deg,#FFB700,#FF6A00);border-radius:28px;margin:10px 16px;padding:20px;color:black;position:relative;overflow:hidden}
+body{background:#0a0a0a;color:white;font-family:'Segoe UI',sans-serif;padding-bottom:95px}
+.header{padding:18px;display:flex;justify-content:space-between;align-items:center}
+.logo{font-size:26px;font-weight:900;line-height:0.9}.logo span{color:#FFD700}
+.profile{width:42px;height:42px;background:#FFD700;border-radius:50%;display:flex;align-items:center;justify-content:center;color:black;font-weight:900}
+.now-playing{background:linear-gradient(135deg,#FFD700,#FF6A00);border-radius:26px;margin:10px 14px;padding:18px;color:black}
 .now-top{display:flex;justify-content:space-between}
-.now-label{font-size:12px;letter-spacing:2px;opacity:0.8;font-weight:700}
-.song-title{font-size:32px;font-weight:900;margin-top:5px}
-.artist{font-size:16px;font-weight:600;opacity:0.9;margin-top:2px}
-.art{width:70px;height:70px;background:black;border-radius:16px;display:flex;align-items:center;justify-content:center;font-size:36px}
-.progress-wrap{margin-top:18px}
-.progress-bar{width:100%;height:8px;background:rgba(0,0,0,0.2);border-radius:10px;overflow:hidden;cursor:pointer}
-.progress{height:100%;background:black;width:0%;transition:width 0.1s}
-.time{display:flex;justify-content:space-between;margin-top:6px;font-weight:800;font-size:14px}
-.controls{display:flex;justify-content:center;align-items:center;gap:30px;margin-top:18px}
-.c-btn{width:52px;height:52px;background:rgba(0,0,0,0.2);border:none;border-radius:50%;font-size:20px;cursor:pointer}
-.play-btn{width:78px;height:78px;background:black;color:#FFB700;border:none;border-radius:50%;font-size:32px;cursor:pointer;display:flex;align-items:center;justify-content:center}
-.section{padding:16px}
-.section-title{font-size:20px;font-weight:900;margin-bottom:12px}
-.grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
-.card{background:#1a1a1a;border-radius:18px;padding:18px;border:1px solid #2a2a2a;cursor:pointer;transition:0.2s}
-.card:active{transform:scale(0.96)}
-.card-icon{font-size:32px;margin-bottom:10px}
-.card-title{font-weight:800;font-size:16px}
-.card-sub{font-size:13px;opacity:0.6;margin-top:2px}
-.list{margin-top:8px}
-.track{background:#1a1a1a;border-radius:14px;padding:12px;display:flex;align-items:center;gap:12px;margin-bottom:8px;border:1px solid #222;cursor:pointer}
-.track.active{background:#222;border-color:#FFD700}
-.track-num{width:36px;height:36px;background:#2a2a2a;border-radius:8px;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:14px}
+.now-label{font-size:11px;letter-spacing:2px;font-weight:800;opacity:0.7}
+.song-title{font-size:28px;font-weight:900;margin-top:4px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:220px}
+.artist{font-size:14px;font-weight:600;opacity:0.9}
+#playerWrap{width:100%;height:0;overflow:hidden;transition:0.3s;border-radius:14px;margin-top:12px}
+#playerWrap.show{height:220px}
+iframe{width:100%;height:220px;border:none;border-radius:14px}
+.controls{display:flex;justify-content:center;align-items:center;gap:28px;margin-top:14px}
+.c-btn{width:50px;height:50px;background:rgba(0,0,0,0.18);border:none;border-radius:50%;font-size:18px}
+.play-btn{width:74px;height:74px;background:black;color:#FFD700;border:none;border-radius:50%;font-size:28px;display:flex;align-items:center;justify-content:center}
+.section{padding:14px}
+.section-title{font-size:19px;font-weight:900;margin-bottom:10px}
+.track{background:#1a1a1a;border-radius:14px;padding:12px;display:flex;align-items:center;gap:10px;margin-bottom:8px;border:1px solid #222;cursor:pointer}
+.track.active{background:#2a2a2a;border-color:#FFD700}
+.track-num{width:34px;height:34px;background:#2a2a2a;border-radius:8px;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:13px}
 .track.active .track-num{background:#FFD700;color:black}
-.track-info{flex:1}
-.track-name{font-weight:700;font-size:14px}
-.track-artist{font-size:12px;opacity:0.6}
-.bottom-nav{position:fixed;bottom:0;left:0;right:0;background:#121212;border-top:1px solid #2a2a2a;display:flex;justify-content:space-around;padding:12px 0;z-index:100}
-.nav-item{color:#666;text-align:center;font-size:13px;cursor:pointer;font-weight:700}
+.track-info{flex:1;overflow:hidden}
+.track-name{font-weight:800;font-size:13px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.track-artist{font-size:11px;opacity:0.6}
+.badge{font-size:9px;background:#FFD700;color:black;padding:2px 6px;border-radius:10px;font-weight:900}
+.bottom-nav{position:fixed;bottom:0;left:0;right:0;background:#121212;border-top:1px solid #2a2a2a;display:flex;justify-content:space-around;padding:10px 0;z-index:99}
+.nav-item{color:#666;text-align:center;font-size:12px;font-weight:700}
 .nav-item.active{color:#FFD700}
-.visualizer{display:flex;gap:3px;align-items:end;height:20px}
-.bar{width:4px;background:black;border-radius:10px;animation:wave 0.5s infinite alternate}
-@keyframes wave{0%{height:4px}100%{height:18px}}
-.bar:nth-child(2){animation-delay:0.1s}.bar:nth-child(3){animation-delay:0.2s}.bar:nth-child(4){animation-delay:0.3s}
-.hidden{display:none}
 </style>
 </head>
 <body>
@@ -55,118 +41,98 @@ body{background:#0a0a0a;color:white;font-family:'Segoe UI',sans-serif;padding-bo
 <div class="logo">SIYABONGA<br><span>UNLIMITED</span></div>
 <div class="profile">S</div>
 </div>
-<div class="now-playing" id="nowPlaying">
+<div class="now-playing">
 <div class="now-top">
 <div>
-<div class="now-label">NOW PLAYING</div>
+<div class="now-label">🔴 NOW PLAYING REAL HIT</div>
 <div class="song-title" id="curTitle">Mnike</div>
-<div class="artist" id="curArtist">Tyler ICU & Tumelo_za</div>
+<div class="artist" id="curArtist">Tyler ICU ft Maphorisa</div>
 </div>
-<div class="art"><div id="artIcon">🔥</div></div>
+<div style="font-size:36px" id="artIcon">🔥</div>
 </div>
-<div class="progress-wrap">
-<div class="progress-bar" id="progressBar"><div class="progress" id="progress"></div></div>
-<div class="time"><span id="curTime">0:00</span><span id="durTime">0:00</span></div>
+<div id="playerWrap" class="show">
+<div id="ytPlayer"></div>
 </div>
+<div style="font-size:12px;font-weight:800;text-align:center;opacity:0.7;margin-top:10px">▶ Tap any track below to play REAL official video + audio!</div>
 <div class="controls">
-<button class="c-btn" id="prevBtn">⏮</button>
-<button class="play-btn" id="playBtn">▶️</button>
-<button class="c-btn" id="nextBtn">⏭</button>
+<button class="c-btn" onclick="prev()">⏮</button>
+<button class="play-btn" onclick="togglePlay()" id="playBtn">⏸️</button>
+<button class="c-btn" onclick="next()">⏭</button>
 </div>
-<div id="visual" class="hidden" style="justify-content:center;margin-top:10px"><div class="visualizer"><div class="bar"></div><div class="bar"></div><div class="bar"></div><div class="bar"></div></div></div>
 </div>
 <div class="section">
-<div class="section-title">UNLIMITED VIBES</div>
-<div class="grid">
-<div class="card" onclick="filterCat('amapiano')"><div class="card-icon">🎹</div><div class="card-title">Amapiano</div><div class="card-sub">128 tracks</div></div>
-<div class="card" onclick="filterCat('afro')"><div class="card-icon">🪘</div><div class="card-title">Afro House</div><div class="card-sub">96 tracks</div></div>
-<div class="card" onclick="filterCat('gqom')"><div class="card-icon">💃</div><div class="card-title">Gqom</div><div class="card-sub">64 tracks</div></div>
-<div class="card" onclick="filterCat('all')"><div class="card-icon">🎤</div><div class="card-title">All Hits</div><div class="card-sub">320 tracks</div></div>
-</div>
-<div class="section-title" style="margin-top:22px">🔥 TRENDING NOW - TAP TO PLAY</div>
-<div class="list" id="trackList"></div>
-<div style="background:#1a1a1a;border-radius:14px;padding:14px;margin-top:16px;border:1px dashed #FFD700">
-<div style="font-weight:800;color:#FFD700">🔊 V2 SOUND IS ON!</div>
-<div style="font-size:13px;opacity:0.7;margin-top:4px">Tap any song below to hear real beats. Original hits use demo beats for now.</div>
+<div class="section-title">🔥 REAL HITS - OFFICIAL VIDEOS</div>
+<div id="trackList"></div>
+<div style="background:#FFD700;color:black;border-radius:12px;padding:12px;margin-top:14px;font-weight:800;font-size:13px">
+✅ V3 FIXED: REAL songs from YouTube Official! No more demo beats. Tap = Real Audio + Video!
 </div>
 </div>
 <div class="bottom-nav">
 <div class="nav-item active">🏠 Home</div>
-<div class="nav-item" onclick="alert('Music Library - Coming Soon!')">🎵 Music</div>
-<div class="nav-item" onclick="alert('Favourites - Coming Soon!')">♡ Fav</div>
-<div class="nav-item" onclick="alert('Profile: Siyabonga Unlimited V2 LIVE!')">◎ You</div>
+<div class="nav-item">🎵 Music</div>
+<div class="nav-item">♡ Fav</div>
+<div class="nav-item">◎ You</div>
 </div>
-<audio id="audioPlayer" preload="metadata"></audio>
+<script src="https://www.youtube.com/iframe_api"></script>
 <script>
 const tracks = [
-{title:"Mnike",artist:"Tyler ICU & Tumelo_za",cat:"amapiano",icon:"🔥",src:"https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3"},
-{title:"Dalie",artist:"Kamo Mphela x Tyler ICU",cat:"amapiano",icon:"🎹",src:"https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3"},
-{title:"Water & Garri",artist:"Tiwa Savage",cat:"afro",icon:"🪘",src:"https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3"},
-{title:"AmaPiano Groove",artist:"Siyabonga Unlimited",cat:"amapiano",icon:"🎧",src:"https://www.soundhelix.com/examples/mp3/SoundHelix-Song-8.mp3"},
-{title:"Gqom Revolution",artist:"Durban Gqom Kings",cat:"gqom",icon:"💃",src:"https://www.soundhelix.com/examples/mp3/SoundHelix-Song-9.mp3"},
-{title:"Afro House Sunset",artist:"Black Coffee Tribute",cat:"afro",icon:"🌅",src:"https://www.soundhelix.com/examples/mp3/SoundHelix-Song-10.mp3"},
-{title:"Limpopo Vibes",artist:"Siyabonga Original",cat:"amapiano",icon:"🇿🇦",src:"https://www.soundhelix.com/examples/mp3/SoundHelix-Song-12.mp3"},
+{title:"Mnike",artist:"Tyler ICU & Tumelo.za ft Maphorisa",icon:"🔥",yt:"g_hgm2Mf6Ag"},
+{title:"Dalie",artist:"Kamo Mphela x Tyler ICU",icon:"💃",yt:"Vbi4ZLIEgP4"},
+{title:"Manzi Nte",artist:"Tyler ICU - Hit of Summer",icon:"🎹",yt:"Ypzwajk02Yw"},
+{title:"Government",artist:"Tyler ICU Amapiano",icon:"🇿🇦",yt:"nn10_2As6cs"},
+{title:"Banyana - Izolo",artist:"DJ Maphorisa & Tyler ICU",icon:"💰",yt:"f0PRbO_Afbw"},
+{title:"Work Fada",artist:"Tiwa Savage ft Nas",icon:"🪘",yt:"sueFGcjtfyM"},
+{title:"Imali ye Qolo",artist:"Tman Xpress & Tyler ICU",icon:"💵",yt:"9mg8hA98E7M"},
 ];
-let curIndex = 0;
-let isPlaying = false;
-const audio = document.getElementById('audioPlayer');
-const playBtn = document.getElementById('playBtn');
-const curTitle = document.getElementById('curTitle');
-const curArtist = document.getElementById('curArtist');
-const curTime = document.getElementById('curTime');
-const durTime = document.getElementById('durTime');
-const progress = document.getElementById('progress');
-const progressBar = document.getElementById('progressBar');
-const visual = document.getElementById('visual');
-const trackListEl = document.getElementById('trackList');
-function renderList(filter='all'){
- trackListEl.innerHTML='';
- tracks.forEach((t,i)=>{
-  if(filter!=='all' && t.cat!==filter) return;
-  const div=document.createElement('div');
-  div.className='track'+(i===curIndex?' active':'');
-  div.innerHTML=`<div class="track-num">${i+1}</div><div class="track-info"><div class="track-name">${t.icon} ${t.title}</div><div class="track-artist">${t.artist}</div></div><div>▶️</div>`;
-  div.onclick=()=>playTrack(i);
-  trackListEl.appendChild(div);
+let cur=0;
+let player;
+let isPlaying=true;
+function onYouTubeIframeAPIReady(){
+ player = new YT.Player('ytPlayer', {
+  height:'220',
+  width:'100%',
+  videoId: tracks[0].yt,
+  playerVars:{playsinline:1, modestbranding:1, rel:0},
+  events:{
+   'onReady': (e)=>{ e.target.playVideo(); },
+   'onStateChange': onState
+  }
  });
 }
-function loadTrack(i){
- curIndex=i;
- const t=tracks[i];
- curTitle.textContent=t.title;
- curArtist.textContent=t.artist;
- document.getElementById('artIcon').textContent=t.icon;
- audio.src=t.src;
- renderList();
+function onState(e){
+ if(e.data==1){ document.getElementById('playBtn').textContent='⏸️'; isPlaying=true; }
+ if(e.data==2){ document.getElementById('playBtn').textContent='▶️'; isPlaying=false; }
 }
-function playTrack(i){
- loadTrack(i);
- audio.play();
+function render(){
+ const list=document.getElementById('trackList');
+ list.innerHTML='';
+ tracks.forEach((t,i)=>{
+  const d=document.createElement('div');
+  d.className='track'+(i===cur?' active':'');
+  d.innerHTML=`<div class="track-num">${i+1}</div><div class="track-info"><div class="track-name">${t.icon} ${t.title} <span class="badge">REAL</span></div><div class="track-artist">${t.artist}</div></div><div>▶️</div>`;
+  d.onclick=()=>play(i);
+  list.appendChild(d);
+ });
+ document.getElementById('curTitle').textContent=tracks[cur].title;
+ document.getElementById('curArtist').textContent=tracks[cur].artist;
+ document.getElementById('artIcon').textContent=tracks[cur].icon;
+}
+function play(i){
+ cur=i;
+ render();
+ if(player && player.loadVideoById){
+  player.loadVideoById(tracks[i].yt);
+ }
+ document.getElementById('playerWrap').classList.add('show');
+ window.scrollTo({top:0,behavior:'smooth'});
 }
 function togglePlay(){
- if(audio.paused){ audio.play(); } else { audio.pause(); }
+ if(!player) return;
+ if(isPlaying){ player.pauseVideo(); } else { player.playVideo(); }
 }
-playBtn.onclick=togglePlay;
-document.getElementById('nextBtn').onclick=()=>{ curIndex=(curIndex+1)%tracks.length; playTrack(curIndex); };
-document.getElementById('prevBtn').onclick=()=>{ curIndex=(curIndex-1+tracks.length)%tracks.length; playTrack(curIndex); };
-audio.addEventListener('play',()=>{ isPlaying=true; playBtn.textContent='⏸️'; visual.classList.remove('hidden'); visual.style.display='flex'; });
-audio.addEventListener('pause',()=>{ isPlaying=false; playBtn.textContent='▶️'; visual.classList.add('hidden'); });
-audio.addEventListener('timeupdate',()=>{
- const pct=(audio.currentTime/audio.duration)*100;
- progress.style.width=pct+'%';
- curTime.textContent=fmt(audio.currentTime);
-});
-audio.addEventListener('loadedmetadata',()=>{ durTime.textContent=fmt(audio.duration); });
-audio.addEventListener('ended',()=>{ document.getElementById('nextBtn').click(); });
-progressBar.addEventListener('click',(e)=>{
- const rect=progressBar.getBoundingClientRect();
- const pct=(e.clientX-rect.left)/rect.width;
- audio.currentTime=pct*audio.duration;
-});
-function fmt(s){ if(isNaN(s)) return '0:00'; const m=Math.floor(s/60); const sec=Math.floor(s%60).toString().padStart(2,'0'); return m+':'+sec; }
-function filterCat(c){ renderList(c); alert('Showing: '+c+' - Tap a song to PLAY with sound!'); }
-loadTrack(0);
-renderList();
+function next(){ cur=(cur+1)%tracks.length; play(cur); }
+function prev(){ cur=(cur-1+tracks.length)%tracks.length; play(cur); }
+render();
 </script>
 </body>
-  </html>
+ </html>

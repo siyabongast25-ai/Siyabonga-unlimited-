@@ -3,70 +3,109 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>SIA CHAT</title>
+<title>SIA - Smart AI with Photos</title>
 <style>
-body{background:#0f1f25;color:#fff;min-height:100vh;display:flex;align-items:center;justify-content:center;padding:20px;margin:0;font-family:system-ui}
-.card{background:#1e333b;width:100%;max-width:380px;border-radius:20px;padding:28px;text-align:center}
-h1{color:#0dbd8a;margin-bottom:20px}
-input{width:100%;padding:15px;border-radius:12px;border:none;background:#2a444e;color:#fff;font-size:18px;margin-bottom:12px}
-button{width:100%;padding:15px;border-radius:12px;border:none;background:#0dbd8a;color:#fff;font-size:18px;font-weight:700}
-#chat{display:none;width:100%;max-width:400px;height:85vh;background:#1e333b;border-radius:18px;flex-direction:column;overflow:hidden}
-#head{background:#0dbd8a;padding:14px;font-weight:700;display:flex;justify-content:space-between}
-#msgs{flex:1;overflow-y:auto;padding:12px;display:flex;flex-direction:column;gap:8px}
-.m{background:#2a444e;padding:10px 14px;border-radius:12px;align-self:flex-start}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:#0f1f25;color:#fff;min-height:100vh;display:flex;align-items:center;justify-content:center;padding:12px;font-family:system-ui}
+.card{background:#1e333b;width:100%;max-width:380px;border-radius:20px;padding:26px;text-align:center}
+h1{color:#0dbd8a;margin-bottom:6px}
+.sub{color:#8aa0a8;font-size:13px;margin-bottom:18px}
+input{width:100%;padding:14px;border-radius:12px;border:1px solid #2a444e;background:#2a444e;color:#fff;font-size:16px;margin-bottom:10px;outline:none}
+button{width:100%;padding:14px;border-radius:12px;border:none;background:#0dbd8a;color:#fff;font-size:16px;font-weight:700;cursor:pointer}
+#chat{display:none;width:100%;max-width:420px;height:88vh;background:#1e333b;border-radius:18px;flex-direction:column;overflow:hidden}
+#head{background:#0dbd8a;padding:12px 16px;font-weight:700;display:flex;justify-content:space-between}
+#msgs{flex:1;overflow-y:auto;padding:10px;display:flex;flex-direction:column;gap:10px}
+.m{background:#2a444e;padding:10px 13px;border-radius:14px;align-self:flex-start;max-width:88%;font-size:15px;line-height:1.4}
 .m.me{background:#0dbd8a;align-self:flex-end}
-#inp{display:flex;gap:6px;padding:10px;background:#162a31}
-#inp input{margin:0}
-#inp button{width:70px}
+.m img{max-width:100%;border-radius:10px;margin-top:6px;display:block}
+#inp{display:flex;gap:6px;padding:8px;background:#162a31;align-items:center}
+#inp input{margin:0;flex:1}
+.iconBtn{width:44px!important;min-width:44px;height:44px;padding:0!important;font-size:20px;background:#2a444e!important}
+#sendBtn{width:66px!important}
 </style>
 </head>
 <body>
 <div class="card" id="login">
-<h1>SIA CHAT</h1>
+<h1>SIA AI 📸</h1>
+<div class="sub">Smart Chat + Photos by Siyabonga</div>
 <input id="name" value="Siyabonga" placeholder="Your name">
-<button id="goBtn" type="button">Start Chatting</button>
-<p style="margin-top:10px;font-size:11px;color:#8aa0a8">Tap button or press Enter on keyboard</p>
+<button id="goBtn">Start Smart Chat 🚀</button>
 </div>
 <div id="chat">
-<div id="head"><span id="hname">CHAT</span><span onclick="location.reload()" style="cursor:pointer">X</span></div>
+<div id="head"><span id="hname">SIA AI</span><span onclick="location.reload()" style="cursor:pointer">X</span></div>
 <div id="msgs"></div>
 <div id="inp">
-<input id="txt" placeholder="Type...">
+<button class="iconBtn" id="camBtn" type="button">📷</button>
+<input id="txt" placeholder="Type or send photo...">
+<input type="file" id="fileIn" accept="image/*" capture="environment" style="display:none">
 <button id="sendBtn" type="button">Send</button>
 </div>
 </div>
 <script>
-var user="Siyabonga";
+let userName="Siyabonga";
 function showChat(){
-var n=document.getElementById('name').value.trim();
-if(n==""){n="Siyabonga";}
-user=n;
+userName=document.getElementById('name').value.trim()||"Siyabonga";
 document.getElementById('login').style.display='none';
 document.getElementById('chat').style.display='flex';
-document.getElementById('hname').innerHTML='Hi, '+user;
-add('Welcome '+user+'! Site is LIVE! 🎉');
+document.getElementById('hname').innerText='SIA • '+userName;
+add(`Hey ${userName}! 👋 I'm SIA with 📸!
+
+• Type anything - I answer smart
+• Tap 📷 to send photo from camera/gallery
+• Ask: "car", "tesla", "joke", "help"`,false);
 }
-function add(t,me){
-var d=document.createElement('div');
+function add(t,me,isHTML){
+let d=document.createElement('div');
 d.className=me?'m me':'m';
-d.innerText=t;
-var c=document.getElementById('msgs');
+if(isHTML) d.innerHTML=t; else d.innerText=t;
+let c=document.getElementById('msgs');
 c.appendChild(d);
-c.scrollTop=99999;
+c.scrollTop=c.scrollHeight;
+}
+function addPhoto(file){
+let reader=new FileReader();
+reader.onload=e=>{
+add(`You sent a photo:`,true);
+add(`<img src="${e.target.result}">`,true,true);
+setTimeout(()=>{
+let replies=[
+`Wow nice photo ${userName}! 📸 Looks great! What is it?`,
+`Cool pic! 🔥 Is that your car or view?`,
+`Love this photo! 😍 Where was this taken, ${userName}?`,
+`Nice shot! 📷 SIA sees it! Tell me about it.`
+];
+add(replies[Math.floor(Math.random()*replies.length)],false);
+},800);
+};
+reader.readAsDataURL(file);
+}
+function smartReply(msg){
+let m=msg.toLowerCase();
+if(m.includes('hi')||m.includes('hello')) return `Hey ${userName}! 😊 How can I help?`;
+if(m.includes('tesla')) return `Tesla ⚡: Model 3 = 500km range, 0-100 in 3.1s! Model S Plaid = 1020hp monster! Want more specs?`;
+if(m.includes('car')) return `You love cars 🚗! Which one? BMW, Toyota Hilux, VW GTI, or Tesla? Tell me!`;
+if(m.includes('joke')) return `Why did the car go to gym? To get more EXHAUST! 😂`;
+if(m.includes('time')) return `Time now: ${new Date().toLocaleTimeString()} ⏰`;
+if(m.includes('help')) return `I can: 🚗 Car info, 😂 jokes, 🧮 math, 📸 see your photos! Just ask!`;
+return `Nice! You said "${msg}". Tell me more ${userName}, I am listening! 🤔 Try "tesla" or send a 📷 photo!`;
 }
 function send(){
-var i=document.getElementById('txt');
-var t=i.value.trim();
-if(t=="")return;
+let i=document.getElementById('txt');
+let t=i.value.trim();
+if(!t) return;
 add(t,true);
 i.value='';
-setTimeout(function(){add('Reply: '+t+' - working!',false)},600);
+setTimeout(()=>add(smartReply(t),false),600);
 }
 document.getElementById('goBtn').onclick=showChat;
 document.getElementById('sendBtn').onclick=send;
-document.getElementById('name').onkeydown=function(e){if(e.key=='Enter'){showChat()}};
-document.getElementById('txt').onkeydown=function(e){if(e.key=='Enter'){send()}};
-window.onload=function(){console.log('SIA CHAT loaded');};
+document.getElementById('txt').onkeydown=e=>{if(e.key==='Enter') send()};
+document.getElementById('camBtn').onclick=()=>document.getElementById('fileIn').click();
+document.getElementById('fileIn').onchange=e=>{
+if(e.target.files[0]) addPhoto(e.target.files[0]);
+e.target.value='';
+};
+document.getElementById('name').onkeydown=e=>{if(e.key==='Enter') showChat()};
 </script>
 </body>
-  </html>
+</html>

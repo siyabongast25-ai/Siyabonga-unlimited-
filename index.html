@@ -1,34 +1,80 @@
-<!DOCTYPE html><html><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Sia-Chat v19 FINAL Mom</title><style>*{margin:0;padding:0;box-sizing:border-box;font-family:system-ui}body{background:#0f172a;color:#fff;max-width:480px;margin:0 auto}.card{background:#1e293b;border-radius:20px;padding:20px;margin:14px}h1,h2{text-align:center}h2{color:#5eead4;margin:8px 0;font-size:18px}input{width:100%;padding:14px;border-radius:12px;border:0;background:#334155;color:#fff;margin:8px 0}button{width:100%;padding:14px;border-radius:12px;border:0;font-weight:800;background:#14b8a6;color:#fff;margin:4px 0}button:active{transform:scale(0.98)}.contact{background:#334155;padding:12px;border-radius:12px;margin:8px 0;cursor:pointer;display:flex;justify-content:space-between}.sia{background:linear-gradient(135deg,#14b8a6,#f59e0b);border:2px solid #fde68a}.sia b,.sia span{color:#000!important}#main,#chat{display:none}#welcome{display:flex;min-height:100vh;align-items:center;justify-content:center;padding:20px}.msgs{padding:12px;display:flex;flex-direction:column;gap:8px;height:68vh;overflow:auto;padding-bottom:85px}.bubble{max-width:85%;padding:10px 14px;border-radius:16px;font-size:14px;line-height:1.4;word-wrap:break-word}.me{align-self:flex-end;background:#14b8a6;border-bottom-right-radius:4px}.them{align-self:flex-start;background:#334155;border-bottom-left-radius:4px}.bubble img{max-width:220px;max-height:300px;border-radius:12px;margin-top:6px;display:block;border:2px solid #14b8a6}.inputRow{position:fixed;bottom:0;left:0;right:0;display:flex;gap:5px;padding:10px;background:#0f172a;max-width:480px;margin:0 auto}.inputRow input{margin:0;flex:1}.inputRow button{width:auto;padding:10px 12px;border-radius:20px}.small{color:#94a3b8;font-size:11px;text-align:center;margin-top:6px}.badge{background:#000;color:#fff;padding:3px 8px;border-radius:10px;font-size:10px}</style></head><body>
-<div id="welcome"><div class="card" style="width:100%;max-width:400px"><h1>Sia-Chat v19 💬</h1><h2>For Mom - Final Edition</h2><p class="small">Built today Bushbuckridge → Northam<br>By Siyabonga - 1 hour coding!</p><input id="nameInput" placeholder="Your name" value="Siyabonga"><input id="locInput" value="Northam - Limpopo - SA"><button onclick="go()">START CHATTING - Show Mom!</button><p class="small" style="margin-top:12px">✅ Import Contacts<br>✅ Hide Contacts<br>✅ Camera WhatsApp<br>✅ SMART Bot knows SA<br>✅ Photos stay visible<br>✅ Like Meta AI</p></div></div>
-<div id="main"><div class="card"><h1>Sia-Chat v19 👩‍👦</h1><p class="small" id="hi" style="text-align:left"></p><div style="background:#f59e0b;color:#000;padding:10px;border-radius:12px;margin:10px 0;font-size:12px;text-align:center"><b>Show Mom:</b> MY app I built today! No WhatsApp, MY code!</div><div class="contact sia" onclick="chatWith('Sia Bot','BOT')"><div><b>Sia Bot SMART - Show Mom!</b><br><span style="font-size:11px">Knows Mpumalanga, Limpopo, Kruger, Car, Photos!</span></div><span class="badge">SMART</span></div><button onclick="importC()">📱 Import All Contacts From Phone</button><button onclick="addManual()" style="background:#0ea5e9">➕ Add Contact Manually</button><button onclick="hideC()" id="hideBtn" style="background:#475569">👁️ Hide Contacts - Tap to Hide!</button><div id="wrap"><div id="list"></div></div><p class="small" id="st"></p><button onclick="resetApp()" style="background:#1f2937;font-size:12px">Reset</button></div></div>
-<div id="chat"><div style="background:#1e293b;padding:12px;display:flex;gap:10px;align-items:center"><button onclick="back()" style="width:auto;background:#334155;padding:8px 14px;border-radius:20px">← Back</button><div><b id="cName"></b><br><span style="font-size:10px;color:#5eead4">v19 FINAL - All features - For Mom</span></div></div><div class="msgs" id="msgs"></div><div class="inputRow"><button onclick="document.getElementById('cam').click()" style="background:#334155;font-size:18px">📷</button><input type="file" id="cam" accept="image/*" capture="environment" style="display:none" onchange="sendPic(this)"><input id="msgInput" placeholder="Ask Sia Bot anything..."><button onclick="send()" style="background:#14b8a6">Send</button></div></div>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>SIA CHAT</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;background:#111b21;color:#e9edef;height:100vh;overflow:hidden;display:flex;flex-direction:column}
+header{background:#202c33;padding:10px 15px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:10}
+header h1{font-size:18px;letter-spacing:1px}
+#welcome{position:fixed;inset:0;background:#111b21;display:flex;align-items:center;justify-content:center;z-index:100}
+.card{background:#202c33;padding:25px;border-radius:12px;width:90%;max-width:360px;box-shadow:0 4px 20px rgba(0,0,0,.5)}
+.card h2{text-align:center;margin-bottom:15px;color:#00a884}
+.card input{width:100%;padding:12px;border-radius:8px;border:none;background:#2a3942;color:#fff;font-size:16px;margin:10px 0;outline:none}
+.card button{width:100%;padding:12px;border:none;border-radius:8px;background:#00a884;color:#fff;font-size:16px;font-weight:600;margin-top:10px}
+#main{display:none;flex-direction:column;height:100vh}
+.contacts{flex:1;overflow-y:auto;background:#111b21}
+.contact{padding:12px 15px;display:flex;align-items:center;gap:12px;border-bottom:1px solid #222d34;cursor:pointer}
+.contact:active{background:#202c33}
+.avatar{width:45px;height:45px;border-radius:50%;background:#00a884;display:flex;align-items:center;justify-content:center;font-weight:bold;color:#fff;font-size:18px}
+#chat{position:fixed;inset:0;background:#0b141a;display:none;flex-direction:column;z-index:20}
+#chatHeader{background:#202c33;padding:10px 12px;display:flex;align-items:center;gap:10px}
+#chatHeader button{background:none;border:none;color:#fff;font-size:20px}
+#messages{flex:1;overflow-y:auto;padding:15px;display:flex;flex-direction:column;gap:8px;background:#0b141a}
+.msg{max-width:75%;padding:8px 10px;border-radius:8px;font-size:14.5px;line-height:19px;position:relative;word-wrap:break-word}
+.sent{align-self:flex-end;background:#005c4b;color:#e9edef;border-top-right-radius:0}
+.recv{align-self:flex-start;background:#202c33;color:#e9edef;border-top-left-radius:0}
+.msg small{display:block;font-size:11px;opacity:.6;text-align:right;margin-top:4px}
+.loc{color:#53bdeb;text-decoration:none}
+#inputBar{background:#202c33;padding:8px 10px;display:flex;align-items:center;gap:8px}
+#inputBar input{flex:1;padding:10px 14px;border-radius:20px;border:none;background:#2a3942;color:#fff;outline:none;font-size:15px}
+#inputBar button{width:42px;height:42px;border-radius:50%;border:none;background:#00a884;color:#fff;font-size:20px;display:flex;align-items:center;justify-content:center}
+#inputBar .locBtn{background:#2a3942;font-size:18px}
+.topActions{display:flex;gap:8px;padding:10px}
+.topActions button{flex:1;padding:10px;border:none;border-radius:8px;background:#2a3942;color:#fff}
+</style>
+</head>
+<body>
+<div id="welcome">
+  <div class="card">
+    <h2>SIA CHAT</h2>
+    <input id="nameInput" placeholder="Enter your name">
+    <button onclick="go()">Start Chatting</button>
+  </div>
+</div>
+<div id="main">
+  <header><h1>SIA CHAT</h1><button onclick="addManual()" style="background:none;border:none;color:#00a884;font-size:22px">＋</button></header>
+  <div class="topActions"><button onclick="hideC()">Hide/Show</button><button onclick="clearAll()">Clear</button></div>
+  <div id="contactList" class="contacts"></div>
+</div>
+<div id="chat">
+  <div id="chatHeader"><button onclick="closeChat()">←</button><div class="avatar" id="chatAvatar">A</div><div><div id="chatName">Name</div><div style="font-size:12px;opacity:.7">accurate GPS on</div></div></div>
+  <div id="messages"></div>
+  <div id="inputBar"><button class="locBtn" onclick="sendLocation()">📍</button><input id="msgInput" placeholder="Type message" onkeydown="if(event.key==='Enter')sendMsg()"><button onclick="sendMsg()">➤</button></div>
+</div>
 <script>
 var myName='';var cur='';var curTel='';var hidden=false;
-function $(i){return document.getElementById(i);}
-function loadC(){try{return JSON.parse(localStorage.getItem('sia_c_final')||'[]')}catch(e){return []}}
-function saveC(c){localStorage.setItem('sia_c_final',JSON.stringify(c));}
-function loadM(){try{var m=JSON.parse(localStorage.getItem('sia_m19')||'{}');if(!Object.keys(m).length){var keys=['sia_m18','sia_m17','sia_m16'];for(var k=0;k<keys.length;k++){var old=localStorage.getItem(keys[k]);if(old){try{var o=JSON.parse(old);for(var nm in o){if(!m[nm]){m[nm]=[];var arr=o[nm];for(var i=0;i<arr.length;i++){m[nm].push({f:arr[i].f||(arr[i].from==='me'?'me':'them'),t:arr[i].t||arr[i].text||'',img:arr[i].img||''});}}}}catch(e){}}} }return m;}catch(e){return {}}}
-function saveM(m){localStorage.setItem('sia_m19',JSON.stringify(m));}
-function go(){var n=$('nameInput').value.trim();if(!n)n='Siyabonga';myName=n;localStorage.setItem('sia_name',n);$('hi').innerHTML='Hi <b>'+n+'</b>! Show Mom:<br>• Fixed 404 → Built chat<br>• Added Camera 📷<br>• Added Hide 👁️<br>• Made SMART 🧠<br>All in 1 hour on Vodacom-SA!';$('welcome').style.display='none';$('main').style.display='block';$('chat').style.display='none';render();}
-function render(){var l=loadC();var h='';for(var i=0;i<l.length;i++){var s=l[i].name.replace(/'/g,'');h+='<div class=contact onclick="chatWith(\''+s+'\',\''+l[i].tel+'\')"><div><b>'+l[i].name+'</b><br><span style="font-size:11px;color:#94a3b8">'+l[i].tel+'</span></div><span>💬</span></div>';}if(!l.length)h='<p class=small>No contacts yet. Tap Import All like WhatsApp!</p>';$('list').innerHTML=h;$('st').innerText=l.length+' contacts saved. Ready for Mom!';}
-function hideC(){hidden=!hidden;$('wrap').style.display=hidden?'none':'block';$('hideBtn').innerText=hidden?'👁️ Show Contacts':'👁️ Hide Contacts';}
-function addManual(){var n=prompt('Name e.g. Mom:');if(!n)return;var t=prompt('Phone:')||'';var c=loadC();c.push({name:n,tel:t});saveC(c);render();}
-function chatWith(name,tel){cur=name;curTel=tel;$('cName').innerText=name;$('welcome').style.display='none';$('main').style.display='none';$('chat').style.display='block';var a=loadM();if(name==='Sia Bot'&&(!a[name]||!a[name].length)){a[name]=[{f:'them',t:'Dumela '+myName+'! For Mom v19 FINAL!'}, {f:'them',t:'EVERYTHING:\n📱 Import Contacts\n👁️ Hide Contacts\n📷 Camera - photos STAY!\n🧠 SMART - Mpumalanga, Limpopo, Northam, Bushbuckridge, Kruger\n🔍 Where is? What is?\n👁️ "Did you see picture?" YES!\n🚗 "Car" talks car!\n\nLike Meta AI! Show Mom!'}, {f:'them',t:'Try: 1. 📷 send photo 2. "Did you see?" 3. "Where is Mpumalanga?" 4. "Car"'}];saveM(a);}show();}
-function show(){var a=loadM();var m=a[cur]||[];var o='';for(var i=0;i<m.length;i++){var c=m[i].f==='me'?'me':'them';var txt=m[i].t.replace(/\n/g,'<br>');if(m[i].img)txt+='<br><img src="'+m[i].img+'">';o+='<div class="bubble '+c+'">'+txt+'</div>';}$('msgs').innerHTML=o;setTimeout(function(){$('msgs').scrollTop=$('msgs').scrollHeight;},120);}
-function send(){var inp=$('msgInput');var txt=inp.value.trim();if(!txt)return;var a=loadM();if(!a[cur])a[cur]=[];a[cur].push({f:'me',t:txt});saveM(a);inp.value='';show();if(curTel==='BOT')setTimeout(function(){reply(txt);},700);}
-function sendPic(el){var f=el.files[0];if(!f)return;if(f.size>2000000){alert('Photo too big! Max 2MB');return;}var r=new FileReader();r.onload=function(e){var a=loadM();if(!a[cur])a[cur]=[];a[cur].push({f:'me',t:'📷 Photo:',img:e.target.result});saveM(a);show();if(curTel==='BOT')setTimeout(function(){var b=loadM();b[cur].push({f:'them',t:'👁️ YES! I SEE PHOTO! Visible with green border! STAYS! Ask "What do you see?" Perfect for Mom!'});saveM(b);show();},800);};r.readAsDataURL(f);el.value='';}
-async function reply(t){var low=t.toLowerCase();var res='';var a=loadM();var hasImg=false;if(a[cur]){for(var i=a[cur].length-1;i>=0;i--){if(a[cur][i].img){hasImg=true;break;}}}
-if(low.includes('did you see')||low.includes('see the picture')||low.includes('what do you see')){if(hasImg){res='👁️ YES MOM! I SEE IT! Photo visible, green border, STAYS! ✅\nIf gate: Open black gate, red dirt, Limpopo sunshine!\nIf car: I see car! 🚗\nShow Mom - photo stays!';}else{res='👀 No photo yet! Tap 📷 take photo, it stays! Then I say YES!';}}
-else if(low.includes('car')){res=hasImg?'🚗 CAR! YES I see car in photo! Is it family car? Tell me!':'🚗 Car! Send car photo with 📷, I see it!';}
-else if(low.includes('mpumalanga')){res='📍 Mpumalanga: Eastern SA! Capital Mbombela, Kruger 🦁, Blyde Canyon! Bushbuckridge INSIDE! You lived there!';}
-else if(low.includes('limpopo')||low.includes('northam')){res='📍 Limpopo/Northam: Where we are! Mining town near Thabazimbi, red soil, bushveld, your gate photo = Limpopo!';}
-else if(low.includes('mom')||low.includes('mama')){res='👩‍👦 For Mom: Siyabonga built TODAY from 404 error! Added Import, Hide, Camera, SMART bot! All on phone Vodacom-SA! Developer! 🎉';}
-else if(low.includes('dumb')){res='Sorry was dumb v16/v17! Now v19 SMART: Photos stay, understands "Did you see?" "Car" like Meta AI!';}
-else if(low.includes('where is')||low.includes('what is')){try{var topic=t.replace(/where is|what is|\?/gi,'').trim();var url='https://en.wikipedia.org/api/rest_v1/page/summary/'+encodeURIComponent(topic);var rp=await fetch(url);if(rp.ok){var d=await rp.json();res='🔍 '+d.title+':\n'+d.extract;}else{res='I know Limpopo, Mpumalanga offline!';}}catch(e){res='No net.';}}
-else{res='You: "'+t+'"\n\nv19 FINAL for Mom:\n✅ Photos STAY\n✅ "Did you see?" → YES\n✅ "Car" → talks car\n✅ Mpumalanga/Limpopo\n✅ Hide/Camera\nNot dumb! Like Meta AI!';}
-var am=loadM();am[cur].push({f:'them',t:res});saveM(am);show();}
-function back(){$('welcome').style.display='none';$('main').style.display='block';$('chat').style.display='none';}
-async function importC(){var s=$('st');if(!(navigator.contacts&&window.ContactsManager)){s.innerText='Need Chrome';return;}try{s.innerText='Opening...';var cs=await navigator.contacts.select(['name','tel'],{multiple:true});var ex=loadC();var add=0;for(var i=0;i<cs.length;i++){var nm=(cs[i].name&&cs[i].name[0])||'Unknown';var tl=(cs[i].tel&&cs[i].tel[0])||'';var found=false;for(var j=0;j<ex.length;j++){if(ex[j].name===nm&&ex[j].tel===tl){found=true;break;}}if(!found){ex.push({name:nm,tel:tl});add++;}}saveC(ex);render();s.innerText='Imported '+add+' Total '+ex.length+' - Show Mom!';}catch(e){s.innerText='Cancelled';}}
-function resetApp(){if(confirm('Clear for Mom?')){localStorage.clear();location.reload();}}
-$('msgInput').addEventListener('keydown',function(e){if(e.key==='Enter')send();});
-</script></body></html>
+function $(i){return document.getElementById(i)}
+function loadC(){try{return JSON.parse(localStorage.getItem('sia_contacts')||'[]')}catch(e){return []}}
+function saveC(c){localStorage.setItem('sia_contacts',JSON.stringify(c))}
+function loadM(){try{return JSON.parse(localStorage.getItem('sia_msgs')||'{}')}catch(e){return {}}}
+function saveM(m){localStorage.setItem('sia_msgs',JSON.stringify(m))}
+function go(){var n=$('nameInput').value.trim();if(!n){alert('Enter name');return}myName=n;localStorage.setItem('sia_myname',n);$('welcome').style.display='none';$('main').style.display='flex';render()}
+function render(){var l=loadC();var h='';for(var i=0;i<l.length;i++){var c=l[i];h+='<div class=contact onclick="openChat(\''+c.name.replace(/'/g,'\\\'')+'\')"><div class=avatar>'+c.name.charAt(0).toUpperCase()+'</div><div style=flex:1><div style=font-weight:500>'+c.name+'</div><div style=font-size:12px;opacity:.6>'+ (c.tel||'') +'</div></div></div>'}if(l.length==0)h='<div style=padding:30px;text-align:center;opacity:.6>No contacts yet<br>Tap + to add</div>';$('contactList').innerHTML=h;if(hidden)$('contactList').style.display='none';else $('contactList').style.display='block'}
+function hideC(){hidden=!hidden;render()}
+function addManual(){var n=prompt('Name:');if(!n)return;var t=prompt('Phone:')||'';var l=loadC();l.push({name:n,tel:t});saveC(l);render()}
+function openChat(name){cur=name;$('chatName').innerText=name;$('chatAvatar').innerText=name.charAt(0).toUpperCase();$('chat').style.display='flex';renderMsgs()}
+function closeChat(){cur='';$('chat').style.display='none'}
+function renderMsgs(){var all=loadM();var arr=all[cur]||[];var html='';for(var i=0;i<arr.length;i++){var m=arr[i];var cls=m.from===myName?'msg sent':'msg recv';var time=new Date(m.time).toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'});if(m.text.indexOf('__LOC__')===0){var p=m.text.replace('__LOC__','').split('|');var lat=p[0],lng=p[1],acc=p[2];var mapUrl='https://www.google.com/maps?q='+lat+','+lng;html+='<div class='+cls+'><a class=loc href='+mapUrl+' target=_blank>📍 Live Location<br><small>Lat:'+parseFloat(lat).toFixed(6)+' Lng:'+parseFloat(lng).toFixed(6)+'<br>Accuracy: '+acc+'m - Tap to open Maps</small></a><small>'+time+' ✓✓</small></div>';}else{html+='<div class='+cls+'>'+m.text.replace(/</g,'&lt;')+'<small>'+time+' ✓✓</small></div>'}}$('messages').innerHTML=html;$('messages').scrollTop=$('messages').scrollHeight}
+function sendMsg(){var t=$('msgInput').value.trim();if(!t||!cur)return;var all=loadM();if(!all[cur])all[cur]=[];all[cur].push({from:myName,text:t,time:Date.now()});saveM(all);$('msgInput').value='';renderMsgs()}
+function sendLocation(){
+ if(!cur){alert('Open a chat first');return}
+ if(!navigator.geolocation){alert('Geolocation not supported');return}
+ $('messages').innerHTML+='<div class=msg sent style=opacity:.6>Getting accurate location... High accuracy GPS ON</div>';$('messages').scrollTop=$('messages').scrollHeight;
+ var opts={enableHighAccuracy:true,timeout:20000,maximumAge:0};
+ navigator.geolocation.getCurrentPosition(function(pos){
+  var lat=pos.coords.latitude,lng=pos.coords.longitude,acc=Math.round(pos.coords.accuracy);
+  var all=loadM();if(!all[cur])all[cur]=[];all[cur].push({from:myName,text:'__LOC__'+lat+'|'+lng+'|'+acc,time:Date.now()});saveM(all);renderMsgs();
+ },function(err){alert('

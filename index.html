@@ -1,66 +1,72 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>SIA CHAT</title>
 <style>
-*{box-sizing:border-box;margin:0;padding:0;font-family:system-ui}
-body{background:#0f1f25;color:#fff;min-height:100vh;display:flex;align-items:center;justify-content:center;padding:20px}
+body{background:#0f1f25;color:#fff;min-height:100vh;display:flex;align-items:center;justify-content:center;padding:20px;margin:0;font-family:system-ui}
 .card{background:#1e333b;width:100%;max-width:380px;border-radius:20px;padding:28px;text-align:center}
-h1{color:#0dbd8a;letter-spacing:2px;margin-bottom:20px}
-input{width:100%;padding:15px;border-radius:12px;border:none;background:#2a444e;color:#fff;font-size:17px;outline:none;margin-bottom:12px}
-button{width:100%;padding:15px;border-radius:12px;border:none;background:#0dbd8a;color:#fff;font-size:17px;font-weight:700}
-#chatScreen{display:none;width:100%;max-width:480px;height:90vh;flex-direction:column;background:#1e333b;border-radius:18px;overflow:hidden}
-#header{background:#0dbd8a;padding:14px;font-weight:700;display:flex;justify-content:space-between}
-#messages{flex:1;overflow-y:auto;padding:15px;display:flex;flex-direction:column;gap:10px}
-.msg{background:#2a444e;padding:11px 14px;border-radius:14px;max-width:80%;align-self:flex-start;text-align:left}
-.msg.me{background:#0dbd8a;align-self:flex-end}
-#inputArea{display:flex;gap:8px;padding:12px;background:#162a31}
-#inputArea input{margin:0;flex:1}
-#inputArea button{width:80px}
+h1{color:#0dbd8a;margin-bottom:20px}
+input{width:100%;padding:15px;border-radius:12px;border:none;background:#2a444e;color:#fff;font-size:18px;margin-bottom:12px}
+button{width:100%;padding:15px;border-radius:12px;border:none;background:#0dbd8a;color:#fff;font-size:18px;font-weight:700}
+#chat{display:none;width:100%;max-width:400px;height:85vh;background:#1e333b;border-radius:18px;flex-direction:column;overflow:hidden}
+#head{background:#0dbd8a;padding:14px;font-weight:700;display:flex;justify-content:space-between}
+#msgs{flex:1;overflow-y:auto;padding:12px;display:flex;flex-direction:column;gap:8px}
+.m{background:#2a444e;padding:10px 14px;border-radius:12px;align-self:flex-start}
+.m.me{background:#0dbd8a;align-self:flex-end}
+#inp{display:flex;gap:6px;padding:10px;background:#162a31}
+#inp input{margin:0}
+#inp button{width:70px}
 </style>
 </head>
 <body>
-<div class="card" id="loginCard">
+<div class="card" id="login">
 <h1>SIA CHAT</h1>
-<input id="nameInput" type="text" placeholder="Enter your name" value="Siyabonga">
-<button onclick="startChat()">Start Chatting</button>
-<p style="margin-top:12px;color:#8aa0a8;font-size:12px">Fixed version - will work! 🚀</p>
+<input id="name" value="Siyabonga" placeholder="Your name">
+<button id="goBtn" type="button">Start Chatting</button>
+<p style="margin-top:10px;font-size:11px;color:#8aa0a8">Tap button or press Enter on keyboard</p>
 </div>
-<div id="chatScreen">
-<div id="header"><span id="headerName">SIA CHAT</span><span onclick="location.reload()" style="cursor:pointer">Logout</span></div>
-<div id="messages"></div>
-<div id="inputArea">
-<input id="msgInput" type="text" placeholder="Type message...">
-<button onclick="sendMsg()">Send</button>
+<div id="chat">
+<div id="head"><span id="hname">CHAT</span><span onclick="location.reload()" style="cursor:pointer">X</span></div>
+<div id="msgs"></div>
+<div id="inp">
+<input id="txt" placeholder="Type...">
+<button id="sendBtn" type="button">Send</button>
 </div>
 </div>
 <script>
-let userName="";
-function startChat(){
-let v=document.getElementById('nameInput').value.trim();
-if(!v){alert('Enter name');return;}
-userName=v;
-document.getElementById('loginCard').style.display='none';
-document.getElementById('chatScreen').style.display='flex';
-document.getElementById('headerName').innerText='Hi, '+userName+' 👋';
-addMsg('Welcome '+userName+'! Your site is LIVE! 🎉',false);
+var user="Siyabonga";
+function showChat(){
+var n=document.getElementById('name').value.trim();
+if(n==""){n="Siyabonga";}
+user=n;
+document.getElementById('login').style.display='none';
+document.getElementById('chat').style.display='flex';
+document.getElementById('hname').innerHTML='Hi, '+user;
+add('Welcome '+user+'! Site is LIVE! 🎉');
 }
-function addMsg(t,me){
-let d=document.createElement('div');
-d.className=me?'msg me':'msg';
-d.textContent=t;
-let m=document.getElementById('messages');
-m.appendChild(d);
-m.scrollTop=9999;
+function add(t,me){
+var d=document.createElement('div');
+d.className=me?'m me':'m';
+d.innerText=t;
+var c=document.getElementById('msgs');
+c.appendChild(d);
+c.scrollTop=99999;
 }
-function sendMsg(){
-let i=document.getElementById('msgInput');
-let t=i.value.trim();
-if(!t)return;
-addMsg(t,true);
+function send(){
+var i=document.getElementById('txt');
+var t=i.value.trim();
+if(t=="")return;
+add(t,true);
 i.value='';
-setTimeout(()=>{addMsg('SIA CHAT working! 🚀',false)},500);
+setTimeout(function(){add('Reply: '+t+' - working!',false)},600);
 }
-document.get
+document.getElementById('goBtn').onclick=showChat;
+document.getElementById('sendBtn').onclick=send;
+document.getElementById('name').onkeydown=function(e){if(e.key=='Enter'){showChat()}};
+document.getElementById('txt').onkeydown=function(e){if(e.key=='Enter'){send()}};
+window.onload=function(){console.log('SIA CHAT loaded');};
+</script>
+</body>
+  </html>

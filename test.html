@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html><head><meta charset='UTF-8'><meta name='viewport' content='width=device-width,initial-scale=1'><title>Sia-Chat SMART</title>
+<script src='https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@4.20.0/dist/tf.min.js'></script>
+<script src='https://cdn.jsdelivr.net/npm/@tensorflow-models/mobilenet@2.1.0'></script>
+<style>*{margin:0;padding:0;box-sizing:border-box;font-family:system-ui}body{background:#0a0a0a;display:flex;justify-content:center}.phone{width:100%;max-width:430px;background:#111b21;min-height:100vh;display:flex;flex-direction:column} .header{padding:14px 16px}.logo{font-size:26px;font-weight:900;color:white}.location{color:#00a884;font-size:12px} .search-box{background:#202c33;border-radius:12px;padding:10px 14px;display:flex;gap:10px;margin:10px 14px}.search-box input{flex:1;background:transparent;border:none;color:#8696a0;outline:none} .btn-row{display:flex;gap:10px;padding:0 14px 12px}.btn{flex:1;padding:12px;border-radius:24px;border:none;font-weight:800}.btn-chat{background:#00a884;color:white} .chat-item{display:flex;padding:12px 14px;gap:12px}.avatar{width:49px;height:49px;border-radius:50%;background:#222;display:flex;align-items:center;justify-content:center} .chat-info{flex:1}.chat-name{color:#e9edef;font-weight:600}.chat-msg{color:#8696a0;font-size:13px} #chatView{display:none;position:absolute;inset:0;background:#0b141a;flex-direction:column;z-index:20}.chat-head{background:#202c33;padding:10px;display:flex;gap:10px;color:white} .messages{flex:1;padding:12px;overflow-y:auto;display:flex;flex-direction:column;gap:8px} .msg{max-width:80%;padding:8px 10px;border-radius:8px;font-size:14px}.bot{background:#202c33;color:#e9edef;align-self:flex-start}.me{background:#005c4b;color:#fff;align-self:flex-end} .msg img{max-width:200px;border-radius:8px;margin-top:6px;display:block} .input-bar{padding:6px 8px;display:flex;gap:6px;background:#202c33}.input-bar input{flex:1;padding:10px;border-radius:20px;border:none;background:#2a3942;color:white;outline:none} .icon{width:42px;height:42px;border-radius:50%;background:#2a3942;border:none;color:#8696a0}.send{background:#00a884;color:white;border:none;width:42px;height:42px;border-radius:50%} </style></head><body>
+<div class='phone'>
+<div id='homeView'>
+<div class='header'><div class='logo'>✨ Sia-Chat</div><div class='location'>📍 Bushbuckridge • South Africa</div></div>
+<div class='search-box'><span>🔍</span><input placeholder='Search chats...'></div>
+<div class='btn-row'><button class='btn btn-chat' onclick='openChat()'>➕ New Chat</button></div>
+<div class='chat-item' onclick='openChat()'><div class='avatar'>🤖</div><div class='chat-info'><div class='chat-name'>Sia Bot • SMART</div><div class='chat-msg'>I can see pictures! 📸 Send me photo!</div></div></div>
+</div>
+<div id='chatView'>
+<div class='chat-head'><button onclick='closeChat()' style='background:transparent;border:none;color:white;font-size:22px'>←</button><div><div>Sia Bot • SMART</div><div style='font-size:11px;color:#00a884'>Can see pictures 👁️</div></div></div>
+<div class='messages' id='msgs'><div class='msg bot'>Sawubona! I am SMART! 👁️ Send car, dog, food photo! Tap 📷 below!</div></div>
+<div style='padding:4px 14px;font-size:12px;color:#00a884;display:none' id='typing'>Analysing picture... 👁️</div>
+<div class='input-bar'><button class='icon' onclick='document.getElementById("fileIn").click()'>📷</button><input id='inp' placeholder='Type message'><button class='send' onclick='sendMsg()'>➤</button></div>
+<input type='file' id='fileIn' accept='image/*' style='display:none'><img id='hidden' style='display:none'>
+</div></div>
+<script>
+let net=null; mobilenet.load().then(m=>{net=m});
+function openChat(){document.getElementById('homeView').style.display='none';document.getElementById('chatView').style.display='flex'}
+function closeChat(){document.getElementById('chatView').style.display='none';document.getElementById('homeView').style.display='block'}
+function addMsg(h,w){let m=document.getElementById('msgs');let d=document.createElement('div');d.className='msg '+w;d.innerHTML=h;m.appendChild(d);m.scrollTop=m.scrollHeight}
+async function analyse(img){ if(!net) return "I see picture! AI loading..."; let p=await net.classify(img); let top=p[0]; let l=top.className.toLowerCase(); let c=Math.round(top.probability*100); if(l.includes('car')||l.includes('racer')||l.includes('jeep')) return `🚗 SMART: CAR! ${top.className} ${c}% - BMW? Hilux?`; if(l.includes('dog')) return `🐶 DOG! ${top.className} ${c}%`; if(l.includes('cat')) return `🐱 CAT!`; return `👁️ I see ${top.className}! ${c}% sure`; }
+document.getElementById('fileIn').addEventListener('change',async e=>{ let f=e.target.files[0]; if(!f) return; let r=new FileReader(); r.onload=ev=>{ addMsg(`<img src="${ev.target.result}"><br>Your photo`,'me'); document.getElementById('typing').style.display='block'; let h=document.getElementById('hidden'); h.src=ev.target.result; h.onload=async()=>{ let reply=await analyse(h); document.getElementById('typing').style.display='none'; addMsg(reply,'bot'); }; }; r.readAsDataURL(f); });
+function sendMsg(){ let i=document.getElementById('inp'); let t=i.value.trim(); if(!t) return; addMsg(t,'me'); i.value=''; setTimeout(()=>{ addMsg('Nice! Send me photo 📷 and I will tell you what I see!','bot'); },700); }
+</script></body></html>

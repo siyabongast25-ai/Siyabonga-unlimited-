@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Sia-Chat Dark Blue Final</title>
+<meta name="theme-color" content="#0A1931">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:system-ui}
+body{background:#08162e;color:#dbe7ff;min-height:100vh;padding-bottom:90px}
+.header{background:linear-gradient(180deg,#0f2a5a,#08162e);padding:16px;display:flex;justify-content:space-between;align-items:center;position:sticky;top:0;z-index:10}
+.logo{display:flex;gap:8px;align-items:center;font-size:24px;font-weight:900}
+.logo b{color:#60a5fa}
+.icon-row{display:flex;gap:16px;font-size:20px}
+.section-title{display:flex;justify-content:space-between;padding:12px 4px;font-weight:700;color:#93c5fd}
+.reels-row{display:flex;gap:12px;overflow-x:auto;padding:8px 4px}
+.reel-circle{flex:0 0 72px;text-align:center}
+.avatar-ring{width:64px;height:64px;border-radius:50%;background:linear-gradient(45deg,#1e40af,#60a5fa);padding:3px}
+.avatar-inner{width:100%;height:100%;border-radius:50%;background:#0f2a5a;display:grid;place-items:center;font-size:22px}
+.circle-name{font-size:11px;margin-top:6px;color:#cbd5e1}
+.reels-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;padding:10px}
+.reel-card{position:relative;border-radius:16px;overflow:hidden;background:#102a5a;aspect-ratio:9/12}
+.play{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);background:rgba(255,255,255,0.25);width:48px;height:48px;border-radius:50%;display:grid;place-items:center;border:2px solid white}
+.reel-overlay{position:absolute;bottom:0;left:0;right:0;background:linear-gradient(transparent,rgba(0,0,0,0.85));padding:10px;color:white}
+.chat-list{padding:8px 0}
+.chat{display:flex;gap:12px;padding:12px 16px}
+.chat:active{background:rgba(96,165,250,0.1)}
+.c-av{width:52px;height:52px;border-radius:50%;background:#1e3a8a;display:grid;place-items:center;font-weight:700;flex:0 0 52px}
+.c-info{flex:1;min-width:0}
+.c-name{display:flex;justify-content:space-between;font-weight:600}
+.c-time{font-size:11px;color:#93c5fd}
+.c-last{font-size:13px;color:#94a3b8;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.bottom{position:fixed;bottom:12px;left:12px;right:12px;background:rgba(15,42,90,0.95);backdrop-filter:blur(20px);border:1px solid rgba(96,165,250,0.2);border-radius:24px;display:flex;padding:8px;z-index:20}
+.b{flex:1;text-align:center;padding:8px 4px;border-radius:16px;color:#93c5fd;font-size:11px}
+.b.active{background:#60a5fa;color:#08162e;font-weight:700}
+.fab{position:fixed;bottom:100px;right:20px;background:#60a5fa;color:#08162e;width:56px;height:56px;border-radius:18px;display:grid;place-items:center;font-size:28px;font-weight:800;z-index:15}
+.view{display:none}.view.active{display:block}
+</style>
+</head>
+<body>
+<div class="header">
+<div class="logo">🛡️ <span><b>Sia</b>-Chat</span></div>
+<div class="icon-row"><span>🔍</span><span>🔔</span><span>⚙️</span></div>
+</div>
+<div id="v-chats" class="view active">
+<div class="section-title"><span>Status Reels</span><span style="color:#60a5fa" onclick="switchTab('reels')">See all ›</span></div>
+<div class="reels-row" id="statusReels"></div>
+<div class="section-title" style="padding:16px"><span>Chats</span><span style="background:#1e3a8a;padding:4px 10px;border-radius:20px;font-size:11px">LIVE • 1.2k now</span></div>
+<div class="chat-list" id="chatList"></div>
+<div class="fab" onclick="newChat()">+</div>
+</div>
+<div id="v-reels" class="view">
+<div class="section-title" style="padding:16px"><span style="font-size:28px">Reels</span><span style="background:#1e3a8a;padding:6px 12px;border-radius:20px;font-size:12px">LIVE • 1.2k now</span></div>
+<div class="reels-grid" id="reelsGrid"></div>
+<div class="fab" onclick="addReel()">+</div>
+</div>
+<div id="v-calls" class="view"><div class="section-title" style="padding:16px">Calls</div><div class="chat-list" id="callsList"></div></div>
+<div id="v-communities" class="view"><div class="section-title" style="padding:16px">Communities • Bushbuckridge</div><div class="chat-list" id="commList"></div></div>
+<div id="v-updates" class="view"><div class="section-title" style="padding:16px">Updates • Moments</div><div class="chat-list" id="updatesList"></div></div>
+<div class="bottom">
+<div class="b active" id="b-chats" onclick="switchTab('chats')">💬<br>Chats</div>
+<div class="b" id="b-calls" onclick="switchTab('calls')">📞<br>Calls</div>
+<div class="b" id="b-communities" onclick="switchTab('communities')">👥<br>Communities</div>
+<div class="b" id="b-updates" onclick="switchTab('updates')">🔔<br>Updates</div>
+<div class="b" id="b-reels" onclick="switchTab('reels')">📢<br>Reels</div>
+</div>
+<script>
+const statusData=[{name:"Your Reel",me:true,emoji:"😎"},{name:"Alex",emoji:"👨"},{name:"Maya",emoji:"👩"},{name:"Dev",emoji:"👨‍💻"},{name:"Sophie",emoji:"👩‍🎓"},{name:"Thabo",emoji:"👨‍🌾"},];
+let chats=JSON.parse(localStorage.getItem('sia_chats')||'null')||[{name:"Sia Bot SMART 🤖",last:"Tap me! I recognise cars 👁️🚗 + Reels!",time:"now",av:"🤖",pin:true},{name:"Family Group",last:"Mom: Don't forget groceries",time:"11:23 PM",av:"👨‍👩‍👧",count:1},{name:"Khanyi",last:"Sent the photos from the market 🌱",time:"25m",av:"K"},{name:"Bushbuckridge Creatives",last:"New moment posted: Sunset at Mkhuhlu 🌅",time:"1h",av:"BC"},{name:"Thabo",last:"Sounds good, I'll send it now",time:"Yesterday",av:"T"},];
+let reels=JSON.parse(localStorage.getItem('sia_reels')||'null')||[{title:"Cooking in 60s",user:"@chef_ria",likes:42100,emoji:"🍝",color:"#f59e0b"},{title:"Kyoto Morning Walk",user:"@travel_withmaya",likes:28400,emoji:"🏔️",color:"#0ea5e9"},{title:"React Tips 2026",user:"@devhub",likes:61300,emoji:"💻",color:"#6366f1"},{title:"Morning Routine ✨",user:"@sophiestudies",likes:35900,emoji:"☕",color:"#ec4899"},];
+function save(){localStorage.setItem('sia_chats',JSON.stringify(chats));localStorage.setItem('sia_reels',JSON.stringify(reels));}
+function renderStatus(){let h="";statusData.forEach(s=>{h+=`<div class="reel-circle" onclick="${s.me?'addReel()':`openStatus('${s.name}')`}"><div class="avatar-ring"><div class="avatar-inner">${s.emoji}</div></div><div class="circle-name">${s.me?'Your Reel':s.name}</div></div>`});document.getElementById('statusReels').innerHTML=h;}
+function renderChats(){let h="";chats.forEach((c,i)=>{h+=`<div class="chat" onclick="openChat(${i})"><div class="c-av">${c.av}</div><div class="c-info"><div class="c-name"><span>${c.name}${c.pin?' 📌':''}</span><span class="c-time">${c.time}</span></div><div class="c-last">${c.last}</div></div></div>`});document.getElementById('chatList').innerHTML=h;document.getElementById('callsList').innerHTML=chats.slice(0,3).map(c=>`<div class="chat"><div class="c-av">${c.av}</div><div class="c-info"><div class="c-name"><span>${c.name}</span><span class="c-time">📞 2m ago</span></div><div class="c-last">Outgoing • 12:34</div></div></div>`).join('');document.getElementById('commList').innerHTML=`<div class="chat"><div class="c-av">🏘️</div><div class="c-info"><div class="c-name"><span>Bushbuckridge Hub</span></div><div class="c-last">1,240 members • 12 groups</div></div></div>`+chats.filter(c=>c.name.includes('Group')||c.name.includes('Creatives')).map(c=>`<div class="chat"><div class="c-av">${c.av}</div><div class="c-info"><div class="c-name"><span>${c.name}</span></div><div class="c-last">${c.last}</div></div></div>`).join('');document.getElementById('updatesList').innerHTML=statusData.slice(1).map(s=>`<div class="chat"><div class="c-av">${s.emoji}</div><div class="c-info"><div class="c-name"><span>${s.name}</span><span class="c-time">2h ago</span></div><div class="c-last">New moment posted 🌅</div></div></div>`).join('');}
+function renderReels(){let h="";reels.forEach((r,i)=>{h+=`<div class="reel-card" onclick="playReel(${i})" style="background:${r.color}"><div style="width:100%;height:100%;display:grid;place-items:center;font-size:48px">${r.emoji}</div><div class="play">▶</div><div class="reel-overlay"><div style="font-weight:700;font-size:13px">${r.title}</div><div style="display:flex;justify-content:space-between;font-size:11px;margin-top:6px"><span>${r.user} ✓</span><span onclick="event.stopPropagation();likeReel(${i})">❤️ ${(r.likes/1000).toFixed(1)}k</span></div></div></div>`});document.getElementById('reelsGrid').innerHTML=h;}
+function switchTab(t){document.querySelectorAll('.view').forEach(v=>v.classList.remove('active'));document.querySelectorAll('.b').forEach(b=>b.classList.remove('active'));document.getElementById('v-'+t).classList.add('active');document.getElementById('b-'+t).classList.add('active');}
+function openChat(i){let c=chats[i];if(c.name.includes('Sia Bot')){let msg=prompt(`Sia Bot SMART 🤖👁️ Dark Blue Edition I recognise cars! Type car name:`);if(!msg) return;let cars={toyota:"🚗 Toyota Corolla - Popular in Bush!",bmw:"🏎️ BMW - Luxury!",vw:"🚐 VW Polo - SA favorite!",ford:"🚙 Ford Ranger!"};let found=Object.keys(cars).find(k=>msg.toLowerCase().includes(k));if(found){alert(cars[found]);}else{alert(`Sia Bot: "${msg}" Got it!`);}chats[i].last="You: "+msg;renderChats();save();}else{let r=prompt(`Chat with ${c.name} Type reply:`);if(r){chats[i].last="You: "+r;chats[i].time="now";renderChats();save();}}}
+function newChat(){let n=prompt('New contact name:');if(!n) return;let m=prompt('First message:')||'Hi!';chats.unshift({name:n,last:m,time:'now',av:n[0].toUpperCase()});renderChats();save();}
+function playReel(i){let r=reels[i];let a=prompt(`▶️ REEL: ${r.title} 👤 ${r.user} ❤️ ${r.likes} likes 1=Like 2=Comment 3=Share Type 1/2/3:`);if(a=='1') likeReel(i);else if(a=='2'){let cm=prompt('Your comment:');if(cm) alert(`Commented: "${cm}"!`);}else if(a=='3') alert(`Shared ${r.title}!`);}
+function likeReel(i){reels[i].likes+=100;renderReels();save();alert('Liked! ❤️');}
+function addReel(){let t=prompt('New Reel Title:');if(!t) return;let e=prompt('Emoji for reel:')||'🎬';reels.unshift({title:t,user:"@you",likes:10,emoji:e,color:"#1e3a8a"});renderReels();save();alert('Reel added! 🎬');}
+function openStatus(name){alert(`Viewing ${name}'s Status Reel 👁️ 24h story`);}
+renderStatus();renderChats();renderReels();
+</script>
+</body>
+  </html>
